@@ -1,14 +1,16 @@
 const express = require('express');
-const router = express.Router();
+const app = express();
 const bodyParser = require("body-parser");
 const fs = require("fs");
 
-//for parsing the body's of requests
-router.use(bodyParser.urlencoded({extended: false}));
-router.use(bodyParser.json());
-router.use(bodyParser.raw());
+PORT = 4421;
 
-router.use(express.static(__dirname + '/react_apps/place'));
+//for parsing the body's of requests
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
+
+app.use(express.static(__dirname + '/react_app/'));
 
 SECRET_KEY = process.env.SECRET_KEY;
 
@@ -54,25 +56,27 @@ try{
 }
 
 
-router.get('/', (req, res) => {
-	res.sendFile(__dirname + '/react_apps/place/index.html');
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/react_app/index.html');
 });
 
-router.get('/data/', (req, res) => {
+app.get('/data/', (req, res) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.send(JSON.stringify({matrix: board_matrix}));
 });
 
-router.post('/data/', (req, res) => {
+app.post('/data/', (req, res) => {
 	let data = req.body;
 	processPost(data);
 	writeMatrix();
 	res.end();
 });
 
-router.get('/info/', (req, res) => {
+app.get('/info/', (req, res) => {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.sendFile(__dirname + '/pdfs/placePDF.pdf');
+	res.sendFile(__dirname + '/placePDF.pdf');
 });
 
-module.exports = router;
+app.listen(PORT, () => {
+	console.log(`listening on port ${PORT}...`);
+});

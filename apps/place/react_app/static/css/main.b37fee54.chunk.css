@@ -1,0 +1,2 @@
+body{margin:0;padding:0}.pixel,body{box-sizing:border-box}.pixel{width:16px;height:16px;min-width:16px;background-color:red}.board-container{display:flex;justify-content:center;align-items:center;width:100vw;height:100vh}.row,.theboard{display:flex}.row{flex-direction:column}.title-txt{display:flex;justify-content:center}@media (max-width:600px){.pixel{width:8px;min-width:8px;height:8px}}@media (max-width:605px){.title-txt{display:none}}
+/*# sourceMappingURL=main.b37fee54.chunk.css.map */
